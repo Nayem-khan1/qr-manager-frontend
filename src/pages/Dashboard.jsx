@@ -8,12 +8,12 @@ const Dashboard = () => {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [qrcodes, setQRCodes] = useState([]);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   const fetchQRCodes = async () => {
     if (!user) return;
 
     const token = await user.getIdToken();
-
     const res = await fetch(backendUrl + "api/qrcodes", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,6 +22,7 @@ const Dashboard = () => {
 
     const data = await res.json();
     setQRCodes(data);
+    setLoading(false);
   };
 
   const createQRCode = async () => {
@@ -47,7 +48,10 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchQRCodes();
+    if (user) {
+      setLoading(true);
+      fetchQRCodes();
+    }
   }, [user]);
 
   return (
@@ -107,7 +111,13 @@ const Dashboard = () => {
         <h2 className="text-xl font-semibold mb-4 text-gray-800">
           Your QR Codes
         </h2>
-        {qrcodes.length <= 0 ? (
+        {loading ? (
+          <div className="text-center text-gray-500 py-10">
+            <p className="text-lg font-medium animate-pulse">
+              Loading QR Codes...
+            </p>
+          </div>
+        ) : qrcodes.length <= 0 ? (
           <div className="text-center text-gray-500 py-10">
             <p className="text-lg font-medium">
               You haven't created any QR codes yet.

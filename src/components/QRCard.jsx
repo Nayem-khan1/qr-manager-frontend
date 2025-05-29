@@ -8,6 +8,7 @@ const QRCard = ({ qr, onUpdate }) => {
 
   const [newUrl, setNewUrl] = useState(qr.redirect_url);
   const [editing, setEditing] = useState(false);
+  const [loadingImg, setLoadingImg] = useState(true);
 
   const updateQRCode = async () => {
     const token = await user.getIdToken();
@@ -41,11 +42,20 @@ const QRCard = ({ qr, onUpdate }) => {
 
   return (
     <div className="bg-white shadow-md rounded-xl hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col gap-3 p-4">
-      <img
-        src={backendUrl + `api/qrcodes/${qr.id}/image`}
-        alt="QR Preview"
-        className="w-32 h-32 object-contain mx-auto"
-      />
+      {/* Image Loader + Image */}
+      <div className="w-32 h-32 mx-auto relative">
+        {loadingImg && (
+          <div className="w-32 h-32 bg-gray-200 animate-pulse rounded-md absolute top-0 left-0 z-0" />
+        )}
+        <img
+          src={backendUrl + `api/qrcodes/${qr.id}/image`}
+          alt="QR Preview"
+          className={`w-32 h-32 object-contain mx-auto transition-opacity duration-500 ${
+            loadingImg ? "opacity-0" : "opacity-100"
+          }`}
+          onLoad={() => setLoadingImg(false)}
+        />
+      </div>
 
       <h3 className="text-lg font-semibold text-gray-800 text-center">
         {qr.name}
