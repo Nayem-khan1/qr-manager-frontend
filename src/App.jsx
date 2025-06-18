@@ -10,6 +10,7 @@ import { AuthContext } from "./context/AuthProvider.jsx";
 import { useContext } from "react";
 import AdminPage from "./pages/admin/AdminPage.jsx";
 import Loader from "./components/Loader.jsx";
+import Pricing from "./pages/Pricing.jsx";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
@@ -46,6 +47,14 @@ function App() {
           path: "/payment-cancelled",
           element: <CancelPage />,
         },
+        {
+          path: "/prices",
+          element: (
+            <PrivateRoute>
+              <Pricing />
+            </PrivateRoute>
+          ),
+        }
       ],
     },
     {

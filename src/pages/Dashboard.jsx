@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import QRCard from "../components/QRCard";
 import { AuthContext } from "../context/AuthProvider";
 import { backendUrl } from "../config";
+import Modal from "../components/Modal";
 
 const Dashboard = () => {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ const Dashboard = () => {
   const [qrcodes, setQRCodes] = useState([]);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const [showLimitModal, setShowLimitModal] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const fetchQRCodes = async () => {
     if (!user) return;
@@ -46,7 +47,7 @@ const Dashboard = () => {
     const data = await res.json();
     console.log(data);
     if (res.status === 403) {
-      setShowLimitModal(true);
+      setOpen(true);
       return;
     }
 
@@ -61,20 +62,6 @@ const Dashboard = () => {
       fetchQRCodes();
     }
   }, [user]);
-
-  const handleUpgrade = async () => {
-    const token = await user.getIdToken();
-    const res = await fetch(backendUrl + "api/qrcodes/create-checkout-session", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url; 
-    }
-  };
 
   return (
     <div className="min-h-screen sm:py-10 sm:px-4">
@@ -155,36 +142,10 @@ const Dashboard = () => {
             ))}
           </div>
         )}
-
-        {/* Limit Modal */}
-        {showLimitModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                QR Limit Reached
-              </h2>
-              <p className="text-sm text-gray-600 mb-4">
-                You can only create up to 5 QR codes. Upgrade for unlimited
-                access.
-              </p>
-              <div className="flex justify-center gap-4">
-                <button
-                  className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500"
-                  onClick={() => setShowLimitModal(false)}
-                >
-                  Close
-                </button>
-                <button
-                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                  onClick={handleUpgrade}
-                >
-                  Upgrade ($5)
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+      {
+        <Modal open={open} setOpen={setOpen} />
+      }
     </div>
   );
 };
