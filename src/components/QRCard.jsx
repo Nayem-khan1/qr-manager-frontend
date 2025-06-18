@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
-import { FiEdit2, FiDownload } from "react-icons/fi";
+import { FiEdit2, FiDownload, FiTrash2 } from "react-icons/fi";
 import { backendUrl } from "../config.js";
 
 const QRCard = ({ qr, onUpdate }) => {
@@ -22,6 +22,18 @@ const QRCard = ({ qr, onUpdate }) => {
     });
 
     setEditing(false);
+    onUpdate();
+  };
+
+  const deleteQRCode = async () => {
+    const token = await user.getIdToken();
+    await fetch(backendUrl + `api/qrcodes/${qr.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     onUpdate();
   };
 
@@ -91,6 +103,13 @@ const QRCard = ({ qr, onUpdate }) => {
             >
               <FiEdit2 size={16} />
               <span className="text-sm">Edit</span>
+            </button>
+
+            <button onClick={deleteQRCode}
+              className="flex items-center gap-2 bg-gray-100 hover:bg-red-100 text-gray-800 py-1.5 px-4 rounded-full transition cursor-pointer"
+              title="Delete QR"
+            >
+              <FiTrash2 size={16} />
             </button>
 
             <button
