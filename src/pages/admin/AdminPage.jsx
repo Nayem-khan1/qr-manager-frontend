@@ -1,17 +1,14 @@
 import { User } from "lucide-react";
 import { useState } from "react";
-import { FaDashcube } from "react-icons/fa";
-import UserCard from "../../components/userCard";
 import UserList from "../../components/userList";
 
 
 const tabs = [
-	{ id: "dashboard", label: "Dashboard", icon: FaDashcube },
 	{ id: "users", label: "Users", icon: User },
 ];
 
 const AdminPage = () => {
-	const [activeTab, setActiveTab] = useState("dashboard");
+	const [activeTab, setActiveTab] = useState("users");
 
 
 	return (
@@ -42,7 +39,6 @@ const AdminPage = () => {
 						</button>
 					))}
 				</div>
-				{activeTab === "dashboard" && <UserCard />}
 				{activeTab === "users" && <UserList />}
 			</div>
 		</div>
