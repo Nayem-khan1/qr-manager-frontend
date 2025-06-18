@@ -1,56 +1,111 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
-  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
-import app from "../../firebase";
+import axios from "axios";
+import app from "../../firebase.js";
+import { backendUrl } from "../App.jsx";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null); // MongoDB user
   const [loading, setLoading] = useState(true);
 
-  const EmailAndPasswordSignIn = (email, password) => {
+  // ✅ Email/password sign-up
+  const EmailAndPasswordSignUp = async (name, email, password) => {
+    setLoading(true);
+
+    // Create Firebase user
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const firebaseUser = userCredential.user;
+
+    // ✅ Set display name in Firebase user profile
+    await updateProfile(firebaseUser, {
+      displayName: name,
+    });
+
+    // ✅ Get Firebase ID token
+    const idToken = await firebaseUser.getIdToken();
+
+    // ✅ Sync with backend
+    const res = await axios.post(
+      backendUrl + "api/auth/sync",
+      {
+        name: name,
+        email: firebaseUser.email,
+        firebaseUID: firebaseUser.uid,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      }
+    );
+
+    // ✅ Set user states
+    setUser(firebaseUser);
+    setUserData(res.data.user);
+    setLoading(false);
+    return firebaseUser;
+  };
+
+  // ✅ Login with email/password
+  const logIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const EmailAndPasswordSignUp = (email, password) => {
-    setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
+  // ✅ Logout
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-  const authInfo = {
-    user,
-    loading,
-    EmailAndPasswordSignIn,
-    logOut,
-    EmailAndPasswordSignUp,
-  };
-
+  // ✅ Observe Firebase Auth state change
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      setUser(firebaseUser);
+      if (firebaseUser) {
+        const idToken = await firebaseUser.getIdToken();
+
+        try {
+          const res = await axios.get(backendUrl + "api/auth/me", {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          });
+          setUserData(res.data.user);
+        } catch (err) {
+          console.error("Failed to fetch user data from backend:", err.message);
+        }
+      } else {
+        setUserData(null);
+      }
+
       setLoading(false);
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+
+  const authInfo = {
+    user,
+    userData,
+    loading,
+    EmailAndPasswordSignUp,
+    logIn,
+    logOut,
+  };
+
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

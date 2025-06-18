@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 
 export default function SignUp() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -11,8 +12,12 @@ export default function SignUp() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
     try {
-      await EmailAndPasswordSignUp(email, password);
+      await EmailAndPasswordSignUp(name, email, password);
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -28,6 +33,19 @@ export default function SignUp() {
         </h2>
 
         <form onSubmit={handleSignUp} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-800"
+              required
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email

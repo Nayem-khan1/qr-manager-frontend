@@ -5,6 +5,8 @@ import Dashboard from "./pages/Dashboard.jsx";
 import SignUp from "./pages/SignUP.jsx";
 import Main from "./layouts/Main/Main.jsx";
 import Login from "./pages/Login.jsx";
+import SuccessPage from "./pages/SuccessPage.jsx";
+import CancelPage from "./pages/CancelPage.jsx";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -26,6 +28,14 @@ function App() {
         {
           path: "/",
           element: <PrivateRoute><Dashboard/></PrivateRoute>
+        },
+        {
+          path: "/payment-success",
+          element: <SuccessPage />
+        },
+        {
+          path: "/payment-cancelled",
+          element: <CancelPage />
         }
       ]
     },
