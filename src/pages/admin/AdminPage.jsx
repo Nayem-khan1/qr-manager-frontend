@@ -1,6 +1,8 @@
 import { User } from "lucide-react";
 import { useState } from "react";
 import { FaDashcube } from "react-icons/fa";
+import UserCard from "../../components/userCard";
+import UserList from "../../components/userList";
 
 
 const tabs = [
@@ -40,9 +42,8 @@ const AdminPage = () => {
 						</button>
 					))}
 				</div>
-				{/* {activeTab === "create" && < />}
-				{activeTab === "products" && < />}
-				{activeTab === "analytics" && < />} */}
+				{activeTab === "dashboard" && <UserCard />}
+				{activeTab === "users" && <UserList />}
 			</div>
 		</div>
 	);

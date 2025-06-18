@@ -24,7 +24,11 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
 
     // Create Firebase user
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
     const firebaseUser = userCredential.user;
 
     // ✅ Set display name in Firebase user profile
@@ -58,9 +62,27 @@ const AuthProvider = ({ children }) => {
   };
 
   // ✅ Login with email/password
-  const logIn = (email, password) => {
+  const logIn = async (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const firebaseUser = userCredential.user;
+
+    const idToken = await firebaseUser.getIdToken();
+    const res = await axios.get(backendUrl + "api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
+
+    setUser(firebaseUser);
+    setUserData(res.data.user);
+    setLoading(false);
+
+    return firebaseUser;
   };
 
   // ✅ Logout
@@ -105,7 +127,9 @@ const AuthProvider = ({ children }) => {
     logOut,
   };
 
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

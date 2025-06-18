@@ -7,14 +7,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { logIn  } = useContext(AuthContext);
+  const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await logIn (email, password);
+      await logIn(email, password);
       navigate("/");
+      window.location.reload();
     } catch (err) {
       console.error(err);
       setError("Invalid email or password. Please try again.");

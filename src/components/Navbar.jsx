@@ -15,7 +15,7 @@ const Navbar = () => {
     logOut()
       .then(() => {
         alert("You are now logged out!");
-        navigate("/login");
+        navigate("/sign-in");
       })
       .catch((error) => {
         console.log(error);
