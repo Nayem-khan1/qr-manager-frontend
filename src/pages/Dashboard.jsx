@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import QRCard from "../components/QRCard";
 import { AuthContext } from "../context/AuthProvider";
-import { backendUrl } from "../App";
+import { backendUrl } from "../config";
 
 const Dashboard = () => {
   const [name, setName] = useState("");

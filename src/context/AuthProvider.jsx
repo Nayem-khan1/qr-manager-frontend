@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import app from "../../firebase.js";
-import { backendUrl } from "../App.jsx";
+import { backendUrl } from "../config.js";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);

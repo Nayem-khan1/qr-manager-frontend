@@ -8,7 +8,7 @@ import { AuthContext } from "../context/AuthProvider";
 import logo from "../assets/logo.svg";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const logOutHandler = () => {
@@ -38,6 +38,13 @@ const Navbar = () => {
 
         {/* Navigation Icons */}
         <ul className="flex items-center space-x-4 sm:space-x-6">
+          {userData?.role === "admin" && (
+            <li className="p-2 rounded hover:bg-gray-200 transition cursor-pointer border">
+              <Link to="/admin" className="px-2">
+                Admin
+              </Link>
+            </li>
+          )}
           {/* Home Icon */}
           <Link to="/">
             <li className="p-2 rounded hover:bg-gray-200 transition cursor-pointer">

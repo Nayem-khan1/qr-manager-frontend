@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { FiEdit2, FiDownload } from "react-icons/fi";
-import { backendUrl } from "../App";
+import { backendUrl } from "../config.js";
 
 const QRCard = ({ qr, onUpdate }) => {
   const { user } = useContext(AuthContext);
