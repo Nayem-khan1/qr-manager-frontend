@@ -1,0 +1,146 @@
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle } from "lucide-react";
+
+const plans = [
+  {
+    title: "Free",
+    price: "$0",
+    subtitle: "Perfect for getting started",
+    features: ["1 Bio Page", "3 QR Codes", "Basic Analytics", "Limited Themes"],
+    unavailable: ["Custom Domain", "Team Access", "Priority Support"],
+    button: {
+      text: "Get Started",
+      link: "/sign-up",
+    },
+  },
+  {
+    title: "Pro",
+    price: "$12",
+    subtitle: "For growing creators & brands",
+    highlighted: true,
+    features: [
+      "Unlimited Bio Pages",
+      "Unlimited QR Codes",
+      "Advanced Analytics",
+      "Custom Domain",
+      "Priority Support",
+    ],
+    unavailable: ["Team Access"],
+    button: {
+      text: "Upgrade to Pro",
+      link: "/sign-up",
+    },
+  },
+  {
+    title: "Business",
+    price: "$29",
+    subtitle: "For teams & agencies",
+    features: [
+      "Unlimited Everything",
+      "Team Access",
+      "Custom Branding",
+      "Dedicated Manager",
+      "All Pro Features",
+    ],
+    unavailable: [],
+    button: {
+      text: "Contact Sales",
+      link: "/contact",
+    },
+  },
+];
+
+const Pricing = () => {
+  return (
+    <section className="bg-white w-full py-20 px-4" id="pricing">
+      <div className="max-w-6xl mx-auto text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+        >
+          Simple & Transparent Pricing
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-lg text-gray-600 mb-12 max-w-xl mx-auto"
+        >
+          Choose the plan that fits your needs. No hidden fees, no surprises.
+        </motion.p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              className={`rounded-xl border ${
+                plan.highlighted
+                  ? "bg-gradient-to-br from-violet-50 to-fuchsia-50 border-violet-400 shadow-lg"
+                  : "bg-white border-gray-200 shadow"
+              } p-6 flex flex-col items-start justify-between`}
+            >
+              {/* Plan title */}
+              <div className="w-full">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {plan.title}
+                </h3>
+                <p className="text-gray-500 text-sm">{plan.subtitle}</p>
+
+                {/* Price */}
+                <div className="my-6">
+                  <span className="text-4xl font-extrabold text-gray-900">
+                    {plan.price}
+                  </span>
+                  <span className="text-sm text-gray-500 ml-1">/mo</span>
+                </div>
+
+                {/* Features */}
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-gray-700 text-sm"
+                    >
+                      <CheckCircle className="w-4 h-4 text-violet-600 mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                  {plan.unavailable.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-gray-400 text-sm line-through"
+                    >
+                      <XCircle className="w-4 h-4 mr-2" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* CTA Button */}
+              <a
+                href={plan.button.link}
+                className={`w-full text-center py-2 px-4 rounded-md text-sm font-medium transition ${
+                  plan.highlighted
+                    ? "bg-violet-600 hover:bg-violet-700 text-white"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                }`}
+              >
+                {plan.button.text}
+              </a>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Pricing;

@@ -1,12 +1,11 @@
-// src/pages/SuccessPage.jsx
 import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import axios from "axios";
 import { AuthContext } from "../context/AuthProvider";
 import { backendUrl } from "../config";
 
 const SuccessPage = () => {
-    const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const markAsPaid = async () => {

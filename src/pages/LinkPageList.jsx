@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { FiEdit, FiTrash, FiPlus } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";

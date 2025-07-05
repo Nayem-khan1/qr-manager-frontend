@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
