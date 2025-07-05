@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
 body {
-    @apply bg-gray-50
+  @apply bg-gray-50;
+}
+
+.sidebar {
+  height: calc(100vh - 6.75rem); /* = Full height - navbar height */
+  overflow-y: auto;
+  position: relative;
+  background-color: #fff;
+  padding: 1rem 1rem 1.75rem;
+  border-top-left-radius: 0.625rem; /* 10px */
+  border-top-right-radius: 0.625rem;
 }

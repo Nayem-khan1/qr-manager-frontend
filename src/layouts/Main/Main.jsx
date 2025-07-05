@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router";
-import Navbar from "../../components/Navbar";
+import PublicNavbar from "../../components/PublicNavbar";
 
 const Main = () => {
   return (
     <div>
       {/* Full width Navbar */}
       <div className="w-full bg-gray-100 py-4 fixed top-0 z-20">
-        <Navbar />
+        <PublicNavbar />
       </div>
 
       {/* Max width content */}

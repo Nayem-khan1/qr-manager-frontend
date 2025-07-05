@@ -1,79 +1,58 @@
-import { Navigate, RouterProvider, createBrowserRouter } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
+import LandingLayout from "./layouts/LandingLayout/LandingLayout";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUP";
 import PrivateRoute from "./routes/PrivateRoute";
-import Dashboard from "./pages/Dashboard.jsx";
-import SignUp from "./pages/SignUP.jsx";
-import Main from "./layouts/Main/Main.jsx";
-import Login from "./pages/Login.jsx";
-import SuccessPage from "./pages/SuccessPage.jsx";
-import CancelPage from "./pages/CancelPage.jsx";
-import { AuthContext } from "./context/AuthProvider.jsx";
+import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
+import Home from "./pages/LandingPage/Home";
+import Dashboard from "./pages/Dashboard";
+import LinkPageList from "./pages/LinkPageList";
+import SuccessPage from "./pages/SuccessPage";
+import CancelPage from "./pages/CancelPage";
+import Pricing from "./pages/Pricing";
 import { useContext } from "react";
-import AdminPage from "./pages/admin/AdminPage.jsx";
-import Loader from "./components/Loader.jsx";
-import Pricing from "./pages/Pricing.jsx";
+import { AuthContext } from "./context/AuthProvider";
+import CreateLinkPage from "./pages/CreateLinkPage";
+import PublicLinkPage from "./pages/PublicLinkPage";
+import EditLinkPage from "./pages/EditLinkPage";
+import Loader from "./components/Loader";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><Loader /></div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader />
+      </div>
+    );
   }
-
-  const router = createBrowserRouter([
-    {
-      path: "/sign-in",
-      element: <Login />,
-    },
-    {
-      path: "/sign-up",
-      element: <SignUp />,
-    },
-    {
-      path: "/",
-      element: <Main />,
-      children: [
-        {
-          path: "/",
-          element: (
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          ),
-        },
-        {
-          path: "/payment-success",
-          element: <SuccessPage />,
-        },
-        {
-          path: "/payment-cancelled",
-          element: <CancelPage />,
-        },
-        {
-          path: "/prices",
-          element: (
-            <PrivateRoute>
-              <Pricing />
-            </PrivateRoute>
-          ),
-        }
-      ],
-    },
-    {
-      path: "/admin",
-      element:
-        userData?.role === "admin" ? (
-          <PrivateRoute>
-            <AdminPage />
-          </PrivateRoute>
-        ) : (
-          <Navigate to="/sign-in" />
-        ),
-    },
-  ]);
-
   return (
-    <>
-      <RouterProvider router={router}></RouterProvider>
-    </>
+    <Routes>
+      {/* Public Layout */}
+      <Route element={<LandingLayout />}>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/pricing" element={<Pricing />} /> */}
+        <Route path="/sign-up" element={<Login />} />
+        <Route path="/sign-in" element={<SignUp />} />
+      </Route>
+
+      {/* Protected Dashboard Layout */}
+      <Route element={<DashboardLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="/linkpage" element={<LinkPageList />} />
+        <Route path="/linkpages/create" element={<CreatePage />} />
+        <Route path="/settings" element={<Settings />} /> */}
+        <Route path="/payment-success" element={<SuccessPage />} />
+        <Route path="/payment-cancelled" element={<CancelPage />} />
+        <Route path="/prices" element={<Pricing />} />
+        <Route path="/qrcodes" element={<Dashboard />} />
+        <Route path="/linkpages" element={<LinkPageList />} />
+        <Route path="/linkpages/create" element={<CreateLinkPage />} />
+        <Route path="/linkpages/edit/:id" element={<EditLinkPage />} />
+        {userData?.role === "admin" && <AdminPage />}
+      </Route>
+      <Route path="/slug/:slug" element={<PublicLinkPage />} />
+    </Routes>
   );
 }
 

@@ -23,8 +23,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <div className="w-full h-16 shadow bg-white flex items-center px-6 sticky top-0 z-50">
+      <div className="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
         {/* Logo */}
         <Link>
           <div className="w-40 sm:w-48 md:w-56">
