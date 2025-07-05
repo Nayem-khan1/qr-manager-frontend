@@ -32,8 +32,8 @@ function App() {
       <Route element={<LandingLayout />}>
         <Route path="/" element={<Home />} />
         {/* <Route path="/pricing" element={<Pricing />} /> */}
-        <Route path="/sign-up" element={<Login />} />
-        <Route path="/sign-in" element={<SignUp />} />
+        <Route path="/sign-in" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Route>
 
       {/* Protected Dashboard Layout */}
