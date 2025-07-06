@@ -6,6 +6,7 @@ import {
   QrCode,
   Settings,
   BarChart2,
+  Rocket,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -61,8 +62,27 @@ const Sidebar = () => {
         })}
       </nav>
 
-      <div className="mt-auto pt-6 border-t">
-        <p className="text-xs text-gray-400">© 2025 Linkify</p>
+      <div className="mt-auto pt-6 border-t border-gray-300">
+        <div className="flex flex-col gap-3 px-2">
+          <button
+            onClick={() => (window.location.href = "/pricing")}
+            className="flex justify-center items-center w-full text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white py-2 px-4 rounded-md transition"
+          >
+            <Rocket size={18} className="mr-2" /> Upgrade to Pro
+          </button>
+
+          <div className="text-[11px] text-gray-400 text-center leading-tight">
+            <p>
+              You're on the{" "}
+              <span className="font-semibold text-gray-600">Free</span> plan
+            </p>
+            <p>Limited access to features</p>
+          </div>
+        </div>
+
+        <p className="text-[11px] text-gray-300 text-center mt-6">
+          © 2025 Linkify
+        </p>
       </div>
     </aside>
   );
