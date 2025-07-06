@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const CTA = () => {
   return (
     <section className="w-full bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white py-20 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
         {/* Text */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -31,7 +31,7 @@ const CTA = () => {
         >
           <Link
             to="/sign-up"
-            className="inline-flex items-center justify-center bg-white text-violet-600 hover:bg-gray-100 font-semibold text-base md:text-lg px-6 py-3 rounded-md shadow-lg transition-all"
+            className="inline-flex items-center justify-center bg-white text-violet-600 hover:bg-gray-100 font-semibold text-base 2xl:text-lg px-6 py-3 rounded-md shadow-lg transition-all"
           >
             Get Started Free
             <ArrowRight className="ml-2 w-5 h-5" />

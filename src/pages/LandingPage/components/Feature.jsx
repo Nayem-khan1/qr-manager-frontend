@@ -31,7 +31,7 @@ const features = [
 const Feature = () => {
   return (
     <section className="w-full bg-white py-20 px-4">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

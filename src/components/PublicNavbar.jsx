@@ -32,13 +32,13 @@ const PublicNavbar = () => {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scroll ? "bg-white shadow border-b" : "bg-transparent"
+        scroll ? "bg-white shadow border-b border-gray-300" : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto py-3 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="text-xl font-bold text-indigo-600">
-          Linkify
+          LinkHub
         </Link>
 
         {/* Desktop Nav Links */}
@@ -57,13 +57,13 @@ const PublicNavbar = () => {
             <>
               <Link
                 to="/dashboard"
-                className="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 text-sm"
+                className="px-4 py-2 rounded bg-violet-600 hover:bg-violet-700 text-white text-sm"
               >
                 Dashboard
               </Link>
               <button
                 onClick={logOutHandler}
-                className="px-3 py-1.5 rounded border text-sm hover:bg-gray-100"
+                className="px-3 py-1.5 rounded border border-gray-300 text-sm hover:bg-gray-100"
               >
                 Log Out
               </button>
@@ -72,13 +72,13 @@ const PublicNavbar = () => {
             <>
               <Link
                 to="/sign-in"
-                className="text-sm text-gray-600 hover:text-indigo-600"
+                className="text-sm text-gray-600 hover:text-violet-600"
               >
                 Sign In
               </Link>
               <Link
                 to="/sign-up"
-                className="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 text-sm"
+                className="px-4 py-2 rounded bg-violet-600 hover:bg-violet-700 text-white text-sm"
               >
                 Get Started
               </Link>
@@ -97,7 +97,7 @@ const PublicNavbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t px-4 pb-4 shadow">
+        <div className="md:hidden bg-white border-t border-gray-300 px-4 pb-4 shadow">
           <div className="flex flex-col space-y-2 mt-4">
             <Link
               to="/#features"
@@ -140,7 +140,7 @@ const PublicNavbar = () => {
                 </Link>
                 <Link
                   to="/sign-up"
-                  className="mt-2 px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 text-sm"
+                  className="mt-2 px-4 py-2 rounded bg-violet-600 hover:bg-violet-700 text-white text-sm"
                 >
                   Get Started
                 </Link>

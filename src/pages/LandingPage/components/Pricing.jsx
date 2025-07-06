@@ -53,7 +53,7 @@ const plans = [
 const Pricing = () => {
   return (
     <section className="bg-white w-full py-20 px-4" id="pricing">
-      <div className="max-w-6xl mx-auto text-center">
+      <div className="max-w-7xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -8,7 +8,7 @@ const Hero = () => {
       {/* Background Gradient Glow */}
       <div className="absolute -top-32 left-1/2 transform -translate-x-1/2 w-[1000px] h-[1000px] bg-gradient-radial from-purple-300/40 via-fuchsia-300/20 to-transparent rounded-full blur-3xl z-0" />
 
-      <div className="relative max-w-6xl mx-auto z-10">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -16,6 +16,7 @@ import CreateLinkPage from "./pages/CreateLinkPage";
 import PublicLinkPage from "./pages/PublicLinkPage";
 import EditLinkPage from "./pages/EditLinkPage";
 import Loader from "./components/Loader";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
@@ -27,32 +28,35 @@ function App() {
     );
   }
   return (
-    <Routes>
-      {/* Public Layout */}
-      <Route element={<LandingLayout />}>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/pricing" element={<Pricing />} /> */}
-        <Route path="/sign-in" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-      </Route>
+    <>
+      <ScrollToTop />
+      <Routes>
+        {/* Public Layout */}
+        <Route element={<LandingLayout />}>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/pricing" element={<Pricing />} /> */}
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Route>
 
-      {/* Protected Dashboard Layout */}
-      <Route element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        {/* <Route path="/linkpage" element={<LinkPageList />} />
+        {/* Protected Dashboard Layout */}
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/linkpage" element={<LinkPageList />} />
         <Route path="/linkpages/create" element={<CreatePage />} />
         <Route path="/settings" element={<Settings />} /> */}
-        <Route path="/payment-success" element={<SuccessPage />} />
-        <Route path="/payment-cancelled" element={<CancelPage />} />
-        <Route path="/prices" element={<Pricing />} />
-        <Route path="/qrcodes" element={<Dashboard />} />
-        <Route path="/linkpages" element={<LinkPageList />} />
-        <Route path="/linkpages/create" element={<CreateLinkPage />} />
-        <Route path="/linkpages/edit/:id" element={<EditLinkPage />} />
-        {userData?.role === "admin" && <AdminPage />}
-      </Route>
-      <Route path="/slug/:slug" element={<PublicLinkPage />} />
-    </Routes>
+          <Route path="/payment-success" element={<SuccessPage />} />
+          <Route path="/payment-cancelled" element={<CancelPage />} />
+          <Route path="/prices" element={<Pricing />} />
+          <Route path="/qrcodes" element={<Dashboard />} />
+          <Route path="/linkpages" element={<LinkPageList />} />
+          <Route path="/linkpages/create" element={<CreateLinkPage />} />
+          <Route path="/linkpages/edit/:id" element={<EditLinkPage />} />
+          {userData?.role === "admin" && <AdminPage />}
+        </Route>
+        <Route path="/slug/:slug" element={<PublicLinkPage />} />
+      </Routes>
+    </>
   );
 }
 
