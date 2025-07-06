@@ -43,7 +43,7 @@ export default function SignUp() {
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-800"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-800"
               required
             />
           </div>
@@ -56,7 +56,7 @@ export default function SignUp() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600"
               required
             />
           </div>
@@ -70,7 +70,7 @@ export default function SignUp() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-600"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600"
               required
             />
           </div>
@@ -81,7 +81,7 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="w-full bg-gray-800 text-white py-2 rounded-md hover:bg-gray-700 transition duration-200 cursor-pointer"
+            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition duration-200 cursor-pointer"
           >
             Sign Up
           </button>
