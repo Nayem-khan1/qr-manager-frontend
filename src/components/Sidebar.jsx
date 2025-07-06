@@ -40,19 +40,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside
-      className="
-    hidden md:flex flex-col
-    w-64 sticky top-16
-    h-[calc(100vh-4rem)]
-    overflow-y-auto
-    bg-white px-4 pt-4 pb-7
-    border-r shadow-sm
-    rounded-tr-[10px]
-  "
-    >
-      <h2 className="text-xl font-bold text-indigo-600 mb-6">Linkify</h2>
-
+    <aside className="hidden md:flex flex-col w-64 sticky bottom-0 top-20 h-[calc(100vh-5rem)] overflow-y-auto bg-white px-4 pt-4 pb-7 shadow-md rounded-tr-xl rounded-tl-xl">
       <nav className="flex flex-col space-y-2">
         {navLinks.map((link) => {
           const isActive = location.pathname.startsWith(link.path);

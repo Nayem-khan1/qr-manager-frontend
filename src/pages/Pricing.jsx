@@ -1,29 +1,81 @@
-import { CheckCircle } from "lucide-react";
-import { backendUrl } from "../config";
-import { useContext } from "react";
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle } from "lucide-react";
+import { useContext, useMemo } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import { useNavigate, useLocation } from "react-router";
+import { backendUrl } from "../config";
 
-const includedFeatures = [
-  "Unlimited QR Code Generation",
-  "Advanced Analytics & Tracking",
-  "Custom Branding & Domains",
-  "Team Collaboration Tools",
-  "Export to PDF / SVG / PNG",
-  "Priority Support & Updates",
+// All plans
+const allPlans = [
+  {
+    title: "Free",
+    price: "$0",
+    subtitle: "Perfect for getting started",
+    features: ["1 Bio Page", "5 QR Codes", "Basic Analytics", "Limited Themes"],
+    unavailable: ["Custom Domain", "Team Access", "Priority Support"],
+    button: {
+      text: "Get Started",
+      action: "dashboard",
+    },
+  },
+  {
+    title: "Pro",
+    price: "$5",
+    subtitle: "Lifetime access – one-time payment",
+    highlighted: true,
+    features: [
+      "Unlimited Bio Pages",
+      "Unlimited QR Codes",
+      "Advanced Analytics",
+      "Custom Domain",
+      "Priority Support",
+    ],
+    unavailable: ["Team Access"],
+    button: {
+      text: "Upgrade to Pro",
+      action: "upgrade",
+    },
+  },
+  {
+    title: "Business",
+    price: "$29",
+    subtitle: "For teams & agencies",
+    features: [
+      "Unlimited Everything",
+      "Team Access",
+      "Custom Branding",
+      "Dedicated Manager",
+      "All Pro Features",
+    ],
+    unavailable: [],
+    button: {
+      text: "Contact Sales",
+      action: "contact",
+    },
+  },
 ];
 
-export default function Pricing() {
+const Pricing = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isDashboard = useMemo(() => {
+    return location.pathname.includes("/dashboard");
+  }, [location]);
+
+  const filteredPlans = useMemo(() => {
+    return isDashboard ? allPlans.filter((p) => p.title !== "Free") : allPlans;
+  }, [isDashboard]);
 
   const handleUpgrade = async () => {
+    if (!user) return navigate("/sign-in");
     const token = await user.getIdToken();
     const res = await fetch(
-      backendUrl + "api/qrcodes/create-checkout-session",
+      `${backendUrl}api/qrcodes/create-checkout-session`,
       {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       }
     );
     const data = await res.json();
@@ -33,77 +85,105 @@ export default function Pricing() {
   };
 
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl sm:text-center">
-          <h2 className="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-6xl sm:text-balance">
-            Transparent pricing, built for growth
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-            Unlock the full power of QR Manager — perfect for startups, brands, and teams who rely on smart QR solutions to engage, track, and convert.
-          </p>
-        </div>
+    <section className="bg-white w-full pt-40 pb-20 px-4" id="pricing">
+      <div className="max-w-7xl mx-auto text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+        >
+          Simple & Transparent Pricing
+        </motion.h2>
 
-        <div className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-          <div className="p-8 sm:p-10 lg:flex-auto">
-            <h3 className="text-3xl font-semibold tracking-tight text-gray-900">
-              Lifetime QR Pro Access
-            </h3>
-            <p className="mt-6 text-base/7 text-gray-600">
-              No monthly fees. Just one payment and lifetime access to all premium features, updates, and priority support.
-            </p>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="text-lg text-gray-600 mb-12 max-w-xl mx-auto"
+        >
+          Choose the plan that fits your needs. No hidden fees, no surprises.
+        </motion.p>
 
-            <div className="mt-10 flex items-center gap-x-4">
-              <h4 className="flex-none text-sm/6 font-semibold text-indigo-600">
-                What's included
-              </h4>
-              <div className="h-px flex-auto bg-gray-100" />
-            </div>
-
-            <ul
-              role="list"
-              className="mt-8 grid grid-cols-1 gap-4 text-sm/6 text-gray-600 sm:grid-cols-2 sm:gap-6"
+        <div
+          className={`grid grid-cols-1 ${
+            filteredPlans.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
+          } gap-6`}
+        >
+          {filteredPlans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
+              className={`rounded-xl border ${
+                plan.highlighted
+                  ? "bg-gradient-to-br from-violet-50 to-fuchsia-50 border-violet-400 shadow-lg"
+                  : "bg-white border-gray-200 shadow"
+              } p-6 flex flex-col items-start justify-between`}
             >
-              {includedFeatures.map((feature) => (
-                <li key={feature} className="flex gap-x-3">
-                  <CheckCircle
-                    aria-hidden="true"
-                    className="h-6 w-5 flex-none text-indigo-600"
-                  />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div className="w-full">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {plan.title}
+                </h3>
+                <p className="text-gray-500 text-sm">{plan.subtitle}</p>
 
-          <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:shrink-0">
-            <div className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-gray-900/5 ring-inset lg:flex lg:flex-col lg:justify-center lg:py-16">
-              <div className="mx-auto max-w-xs px-8">
-                <p className="text-base font-semibold text-gray-600">
-                  Pay once, use forever
-                </p>
-                <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span className="text-5xl font-semibold tracking-tight text-gray-900">
-                    $5
+                <div className="my-6">
+                  <span className="text-4xl font-extrabold text-gray-900">
+                    {plan.price}
                   </span>
-                  <span className="text-sm/6 font-semibold tracking-wide text-gray-600">
-                    USD
-                  </span>
-                </p>
-                <button
-                  onClick={handleUpgrade}
-                  className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Upgrade Now
-                </button>
-                <p className="mt-6 text-xs/5 text-gray-600">
-                  Invoices and receipts available after payment
-                </p>
+                  {plan.title !== "Pro" && (
+                    <span className="text-sm text-gray-500 ml-1">/mo</span>
+                  )}
+                </div>
+
+                <ul className="space-y-3 mb-6">
+                  {plan.features.map((feature, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-gray-700 text-sm"
+                    >
+                      <CheckCircle className="w-4 h-4 text-violet-600 mr-2" />
+                      {feature}
+                    </li>
+                  ))}
+                  {plan.unavailable.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-gray-400 text-sm line-through"
+                    >
+                      <XCircle className="w-4 h-4 mr-2" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </div>
+
+              <button
+                onClick={() => {
+                  if (plan.button.action === "dashboard") {
+                    navigate("/dashboard");
+                  } else if (plan.button.action === "upgrade") {
+                    handleUpgrade();
+                  } else if (plan.button.action === "contact") {
+                    navigate("/contact");
+                  }
+                }}
+                className={`w-full text-center py-2 px-4 rounded-md text-sm font-medium transition cursor-pointer ${
+                  plan.highlighted
+                    ? "bg-violet-600 hover:bg-violet-700 text-white"
+                    : "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                }`}
+              >
+                {plan.button.text}
+              </button>
+            </motion.div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Pricing;

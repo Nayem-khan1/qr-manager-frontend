@@ -1,9 +1,9 @@
 import React from "react";
 import Hero from "./components/Hero";
 import Feature from "./components/Feature";
-import Pricing from "./components/Pricing";
 import Testimonial from "./components/Testimonial";
 import CTA from "./components/CTA";
+import Pricing from "../Pricing";
 
 const Home = () => {
   return (

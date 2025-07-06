@@ -20,6 +20,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import AdminPage from "./pages/admin/AdminPage";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
+import Contact from "./components/Contact";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/contact" element={<Contact />} />
         </Route>
 
         {/* Protected Dashboard Layout */}
