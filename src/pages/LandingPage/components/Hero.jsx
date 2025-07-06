@@ -24,7 +24,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900"
+          className="text-4xl md:text-6xl font-extrabold  leading-normal tracking-tight text-gray-900"
         >
           Create. Manage. Grow with <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500">
@@ -57,7 +57,7 @@ const Hero = () => {
             Get Started Free <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            to="/features"
+            to="#"
             className="px-6 py-3 rounded-full border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 text-sm font-medium transition"
           >
             Learn More

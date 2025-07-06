@@ -66,7 +66,9 @@ const Feature = () => {
               transition={{ delay: 0.1 * index, duration: 0.6 }}
               className="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition"
             >
-              <div className="mb-4">{feature.icon}</div>
+              <div className="mb-4 flex flex-col justify-center items-center">
+                {feature.icon}
+              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {feature.title}
               </h3>
