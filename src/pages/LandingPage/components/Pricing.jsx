@@ -6,7 +6,7 @@ const plans = [
     title: "Free",
     price: "$0",
     subtitle: "Perfect for getting started",
-    features: ["1 Bio Page", "3 QR Codes", "Basic Analytics", "Limited Themes"],
+    features: ["1 Bio Page", "5 QR Codes", "Basic Analytics", "Limited Themes"],
     unavailable: ["Custom Domain", "Team Access", "Priority Support"],
     button: {
       text: "Get Started",

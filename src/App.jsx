@@ -17,9 +17,13 @@ import PublicLinkPage from "./pages/PublicLinkPage";
 import EditLinkPage from "./pages/EditLinkPage";
 import Loader from "./components/Loader";
 import { ScrollToTop } from "./components/ScrollToTop";
+import AdminPage from "./pages/admin/AdminPage";
+import Analytics from "./pages/Analytics";
+import Settings from "./pages/Settings";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -27,6 +31,7 @@ function App() {
       </div>
     );
   }
+
   return (
     <>
       <ScrollToTop />
@@ -34,17 +39,20 @@ function App() {
         {/* Public Layout */}
         <Route element={<LandingLayout />}>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/pricing" element={<Pricing />} /> */}
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/sign-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Route>
 
         {/* Protected Dashboard Layout */}
-        <Route element={<DashboardLayout />}>
+        <Route
+          element={
+            <PrivateRoute>
+              <DashboardLayout />
+            </PrivateRoute>
+          }
+        >
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/linkpage" element={<LinkPageList />} />
-        <Route path="/linkpages/create" element={<CreatePage />} />
-        <Route path="/settings" element={<Settings />} /> */}
           <Route path="/payment-success" element={<SuccessPage />} />
           <Route path="/payment-cancelled" element={<CancelPage />} />
           <Route path="/prices" element={<Pricing />} />
@@ -52,8 +60,23 @@ function App() {
           <Route path="/linkpages" element={<LinkPageList />} />
           <Route path="/linkpages/create" element={<CreateLinkPage />} />
           <Route path="/linkpages/edit/:id" element={<EditLinkPage />} />
-          {userData?.role === "admin" && <AdminPage />}
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/settings" element={<Settings />} />
+
+          {/* Admin-only route */}
+          {userData?.role === "admin" && (
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <AdminPage />
+                </PrivateRoute>
+              }
+            />
+          )}
         </Route>
+
+        {/* Public Link Page */}
         <Route path="/slug/:slug" element={<PublicLinkPage />} />
       </Routes>
     </>
