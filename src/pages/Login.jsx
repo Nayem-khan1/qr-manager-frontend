@@ -14,7 +14,7 @@ export default function Login() {
     e.preventDefault();
     try {
       await logIn(email, password);
-      navigate("/");
+      navigate("/dashboard");
       window.location.reload();
     } catch (err) {
       console.error(err);

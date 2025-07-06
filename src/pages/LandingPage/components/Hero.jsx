@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, LinkIcon } from "lucide-react";
 import { Link } from "react-router";
 
 const Hero = () => {
@@ -16,7 +16,10 @@ const Hero = () => {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="inline-block text-sm md:text-base font-medium text-violet-700 bg-violet-200/50 px-4 py-1 rounded-full shadow-sm mb-6"
         >
-          🔗 The Future of Link Management
+          <p className="flex justify-center items-center py-1">
+            <LinkIcon size={18} className="mr-2" /> The Future of Link
+            Management
+          </p>
         </motion.div>
 
         {/* Heading */}

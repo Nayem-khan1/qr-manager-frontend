@@ -18,7 +18,7 @@ export default function SignUp() {
     }
     try {
       await EmailAndPasswordSignUp(name, email, password);
-      navigate("/");
+      navigate("/dashboard");
       window.location.reload();
     } catch (err) {
       console.error(err);
