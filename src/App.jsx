@@ -21,6 +21,7 @@ import AdminPage from "./pages/admin/AdminPage";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import Contact from "./components/Contact";
+import DashboardOverview from "./pages/DashboardOverview";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
@@ -54,7 +55,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardOverview />} />
           <Route path="/payment-success" element={<SuccessPage />} />
           <Route path="/payment-cancelled" element={<CancelPage />} />
           <Route path="/prices" element={<Pricing />} />
