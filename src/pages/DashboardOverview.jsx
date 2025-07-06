@@ -4,6 +4,7 @@ import { backendUrl } from "../config";
 import { User, QrCode, LayoutDashboard, BarChart3, Users } from "lucide-react";
 import Chart from "react-apexcharts";
 import OverviewCard from "../components/OverviewCard";
+import Loader from "../components/Loader";
 
 const DashboardOverview = () => {
   const { user } = useContext(AuthContext);
@@ -35,7 +36,11 @@ const DashboardOverview = () => {
   }, [user]);
 
   if (loading) {
-    return <p className="text-gray-500 text-sm">Loading dashboard...</p>;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <Loader />
+      </div>
+    );
   }
 
   if (!overview) {

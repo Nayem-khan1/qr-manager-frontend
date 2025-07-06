@@ -17,11 +17,11 @@ import PublicLinkPage from "./pages/PublicLinkPage";
 import EditLinkPage from "./pages/EditLinkPage";
 import Loader from "./components/Loader";
 import { ScrollToTop } from "./components/ScrollToTop";
-import AdminPage from "./pages/admin/AdminPage";
 import Analytics from "./pages/Analytics";
 import Settings from "./pages/Settings";
 import Contact from "./components/Contact";
 import DashboardOverview from "./pages/DashboardOverview";
+import Users from "./pages/Users";
 
 function App() {
   const { loading, userData } = useContext(AuthContext);
@@ -69,10 +69,10 @@ function App() {
           {/* Admin-only route */}
           {userData?.role === "admin" && (
             <Route
-              path="/admin"
+              path="/users"
               element={
                 <PrivateRoute>
-                  <AdminPage />
+                  <Users />
                 </PrivateRoute>
               }
             />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router";
 import {
   LayoutDashboard,
@@ -7,10 +7,14 @@ import {
   Settings,
   BarChart2,
   Rocket,
+  User2,
+  Users2,
 } from "lucide-react";
+import { AuthContext } from "../context/AuthProvider";
 
 const Sidebar = () => {
   const location = useLocation();
+  const { userData } = useContext(AuthContext);
 
   const navLinks = [
     {
@@ -18,6 +22,15 @@ const Sidebar = () => {
       path: "/dashboard",
       icon: <LayoutDashboard size={18} />,
     },
+    ...(userData?.role === "admin"
+      ? [
+          {
+            title: "Users",
+            path: "/users",
+            icon: <Users2 size={18} />,
+          },
+        ]
+      : []),
     {
       title: "Link Pages",
       path: "/linkpages",
@@ -42,7 +55,7 @@ const Sidebar = () => {
 
   return (
     <aside className="hidden md:flex flex-col w-64 sticky bottom-0 top-20 h-[calc(100vh-5rem)] overflow-y-auto bg-white px-4 pt-4 pb-7 shadow-md rounded-tr-xl rounded-tl-xl">
-      <nav className="flex flex-col space-y-2">
+      <nav className="flex flex-col space-y-2 md:space-y-4">
         {navLinks.map((link) => {
           const isActive = location.pathname.startsWith(link.path);
           return (
@@ -71,17 +84,17 @@ const Sidebar = () => {
             <Rocket size={18} className="mr-2" /> Upgrade to Pro
           </button>
 
-          <div className="text-[11px] text-gray-400 text-center leading-tight">
+          <div className="text-[11px] text-gray-600 text-center leading-tight">
             <p>
               You're on the{" "}
-              <span className="font-semibold text-gray-600">Free</span> plan
+              <span className="font-semibold text-gray-800">Free</span> plan
             </p>
             <p>Limited access to features</p>
           </div>
         </div>
 
-        <p className="text-[11px] text-gray-300 text-center mt-6">
-          © 2025 Linkify
+        <p className="text-[11px] text-gray-500 text-center mt-6">
+          © 2025 LinkHub
         </p>
       </div>
     </aside>
