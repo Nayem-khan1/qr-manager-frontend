@@ -1,12 +1,57 @@
-# React + Vite
+# 🔗 LinkHub – All-in-One Link-in-Bio & QR Code Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LinkHub is a modern, full-stack web application that allows users to create and manage customizable **link-in-bio pages** and **QR codes**. It supports real-time analytics, role-based access (Free, Premium, Admin), Firebase authentication, and a beautiful responsive dashboard built with React and Tailwind CSS.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### 🔐 Authentication
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Firebase Email/Password login
+- Role-based access (Admin, Free, Premium)
+- Secure JWT-based API access with Firebase Admin SDK
+
+### 🧩 Link-in-Bio Pages
+
+- Create beautiful micro landing pages with:
+  - Custom slug
+  - Bio, profile image
+  - Multiple types of links (button, social, video)
+  - Custom theme with colors and optional custom CSS
+- Link page visibility toggle (Publish/Unpublish)
+
+### 🧾 QR Code Management
+
+- Generate unique QR codes for any URL
+- Download QR code image (PNG)
+- Update or delete QR codes anytime
+- Max QR code limit enforced per user role
+
+### 📊 Advanced Analytics
+
+- **QR Scan Tracking**
+  - Country, city, device, browser
+- **Link Click Tracking**
+  - Total views, device type, country, OS, browser
+- Real-time view counter per link page
+
+### 🖥️ Dashboard
+
+- Clean, mobile-friendly dashboard using Tailwind CSS
+- Role-based dashboard views:
+  - **Users**: Their own QR codes, link pages, and analytics
+  - **Admins**: Platform-wide user and analytics management
+
+---
+
+## 🧪 Tech Stack
+
+| Tech          | Description                         |
+| ------------- | ----------------------------------- |
+| **Frontend**  | React, Tailwind CSS, Lucide Icons   |
+| **Backend**   | Express.js, Firebase Admin, MongoDB |
+| **Auth**      | Firebase Authentication             |
+| **Analytics** | IPAPI.co, ua-parser-js              |
+
+---
