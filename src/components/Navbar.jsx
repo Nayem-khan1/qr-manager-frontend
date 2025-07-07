@@ -5,7 +5,6 @@ import { FaUser, FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
-import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   const { user, logOut, userData } = useContext(AuthContext);

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
-
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+import { backendUrl } from "../config";
 
 const CreateLinkPage = () => {
   const [form, setForm] = useState({
@@ -31,7 +30,7 @@ const CreateLinkPage = () => {
       body: JSON.stringify(form),
     });
     const data = await res.json();
-    if (res.ok) navigate("/dashboard");
+    if (res.ok) navigate("/linkpages");
     else alert(data.message);
   };
 

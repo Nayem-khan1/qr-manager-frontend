@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Box } from "lucide-react";
+import { Box, Plus } from "lucide-react";
 import Button from "../ui/button/Button";
 
 const ComponentCard = ({
@@ -23,7 +23,7 @@ const ComponentCard = ({
             <Button
               size="sm"
               variant="primary"
-              startIcon={<Box className="size-5" />}
+              startIcon={<Plus className="size-5" />}
             >
               {buttonTitle}
             </Button>

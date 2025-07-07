@@ -18,7 +18,7 @@ const Button = ({
   // Variant Classes
   const variantClasses = {
     primary:
-      "bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300",
+      "bg-indigo-500 text-white shadow-theme-xs hover:bg-indigo-600 disabled:bg-brand-300 cursor-pointer",
     outline:
       "bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50",
   };
