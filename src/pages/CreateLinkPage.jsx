@@ -52,6 +52,43 @@ const CreateLinkPage = () => {
     }
   };
 
+  const uploadImageToCloudinary = async (file) => {
+    const cloudName = "ddnyqh8uz"; // ✅ replace this
+    const uploadPreset = "linkinbio"; // ✅ replace this
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+
+    try {
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+      return data.secure_url; // ✅ return the image URL
+    } catch (err) {
+      console.error("Upload failed:", err);
+      return null;
+    }
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const url = await uploadImageToCloudinary(file);
+    if (url) {
+      setForm({ ...form, profileImage: url });
+    } else {
+      alert("Image upload failed");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = await user.getIdToken();
@@ -100,10 +137,9 @@ const CreateLinkPage = () => {
             className="w-full border rounded px-4 py-2"
           />
           <input
-            name="profileImage"
-            placeholder="Profile Image URL"
-            value={form.profileImage}
-            onChange={handleChange}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
             className="w-full border rounded px-4 py-2"
           />
 
