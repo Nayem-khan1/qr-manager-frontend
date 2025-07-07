@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   LayoutDashboard,
   LinkIcon,
@@ -7,14 +7,15 @@ import {
   Settings,
   BarChart2,
   Rocket,
-  User2,
   Users2,
 } from "lucide-react";
 import { AuthContext } from "../context/AuthProvider";
+import { backendUrl } from "../config";
 
 const Sidebar = () => {
   const location = useLocation();
-  const { userData } = useContext(AuthContext);
+  const { userData, user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const navLinks = [
     {
@@ -53,6 +54,22 @@ const Sidebar = () => {
     },
   ];
 
+  const handleUpgrade = async () => {
+    if (!user) return navigate("/sign-in");
+    const token = await user.getIdToken();
+    const res = await fetch(
+      `${backendUrl}api/qrcodes/create-checkout-session`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  };
+
   return (
     <aside className="hidden md:flex flex-col w-64 sticky bottom-0 top-20 h-[calc(100vh-5rem)] overflow-y-auto bg-white px-4 pt-4 pb-7 shadow-md rounded-tr-xl rounded-tl-xl">
       <nav className="flex flex-col space-y-2 md:space-y-4">
@@ -78,8 +95,8 @@ const Sidebar = () => {
       <div className="mt-auto pt-6 border-t border-gray-300">
         <div className="flex flex-col gap-3 px-2">
           <button
-            onClick={() => (window.location.href = "/pricing")}
-            className="flex justify-center items-center w-full text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white py-2 px-4 rounded-md transition"
+            onClick={() => handleUpgrade()}
+            className="flex justify-center items-center w-full text-sm font-semibold bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-white py-2 px-4 rounded-md transition cursor-pointer"
           >
             <Rocket size={18} className="mr-2" /> Upgrade to Pro
           </button>
