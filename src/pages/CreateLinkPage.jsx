@@ -3,8 +3,6 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 import { backendUrl } from "../config";
-import { uploadPreset } from "../config";
-import { cloudName } from "../config";
 
 const fallbackImg =
   "https://singingriverhealthsystem.com/wp-content/uploads/2019/10/icon-fallback-physician.png";
@@ -57,11 +55,11 @@ const CreateLinkPage = () => {
   const uploadImageToCloudinary = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", uploadPreset);
+    formData.append("upload_preset", "linkinbio");
 
     try {
       const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        `https://api.cloudinary.com/v1_1/ddnyqh8uz/image/upload`,
         {
           method: "POST",
           body: formData,
