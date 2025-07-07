@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthProvider";
 import { backendUrl } from "../config";
-import PageBreadcrumb from "../components/common/PageBreadcrumb";
 import UsersTable from "../components/UsersTable";
 import ComponentCard from "../components/common/ComponentCard";
 
