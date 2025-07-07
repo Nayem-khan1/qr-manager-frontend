@@ -47,11 +47,6 @@ const Sidebar = () => {
       path: "/analytics",
       icon: <BarChart2 size={18} />,
     },
-    {
-      title: "Settings",
-      path: "/settings",
-      icon: <Settings size={18} />,
-    },
   ];
 
   const handleUpgrade = async () => {

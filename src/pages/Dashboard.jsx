@@ -64,7 +64,7 @@ const Dashboard = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen sm:py-10 sm:px-4">
+    <div className="min-h-screen  sm:px-4">
       <div className="max-w-6xl mx-auto">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row gap-6 mb-10">
@@ -77,19 +77,19 @@ const Dashboard = () => {
               <input
                 type="text"
                 placeholder="QR Name"
-                className="p-3 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-800"
+                className="p-3 border border-indigo-500 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-800"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
                 type="url"
                 placeholder="Redirect URL"
-                className="p-3 border rounded-md focus:outline-none focus:ring-1 focus:ring-gray-800"
+                className="p-3 border border-indigo-500 rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-600"
                 value={redirectUrl}
                 onChange={(e) => setRedirectUrl(e.target.value)}
               />
               <button
-                className="bg-gray-800 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition duration-200 cursor-pointer"
+                className="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition duration-200 cursor-pointer"
                 onClick={createQRCode}
               >
                 Create
@@ -99,7 +99,7 @@ const Dashboard = () => {
           {/* Info Panel */}
           <div className="bg-white rounded-xl shadow p-6 hidden lg:block lg:w-1/2">
             <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              Welcome to QR Manager
+              Welcome to LinkHub
             </h3>
             <p className="text-gray-600 text-sm leading-relaxed">
               Create and manage your QR codes easily. This platform allows you
@@ -143,9 +143,7 @@ const Dashboard = () => {
           </div>
         )}
       </div>
-      {
-        <Modal open={open} setOpen={setOpen} />
-      }
+      {<Modal open={open} setOpen={setOpen} />}
     </div>
   );
 };

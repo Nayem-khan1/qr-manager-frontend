@@ -51,6 +51,22 @@ const DashboardOverview = () => {
 
   return (
     <div className="space-y-8">
+      {!isAdmin && (
+        <div className="rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-6 shadow-md flex flex-col md:flex-row justify-between items-center">
+          <div>
+            <h2 className="text-2xl font-bold mb-1">👋 Welcome back!</h2>
+            <p className="text-sm">
+              {user?.displayName || "Valued User"}, here's your dashboard
+              overview.
+            </p>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <span className="inline-block bg-white text-indigo-600 font-medium px-4 py-1.5 rounded-full shadow-sm">
+              {user?.email}
+            </span>
+          </div>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isAdmin ? (
           <>
@@ -102,7 +118,6 @@ const DashboardOverview = () => {
           </>
         )}
       </div>
-
       {isAdmin && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Chart */}

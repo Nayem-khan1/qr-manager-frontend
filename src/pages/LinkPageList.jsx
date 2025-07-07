@@ -46,10 +46,31 @@ const LinkPageList = () => {
     });
     fetchPages();
   };
-
-  console.log(pages);
   const fallbackImg =
     "https://singingriverhealthsystem.com/wp-content/uploads/2019/10/icon-fallback-physician.png";
+
+  const handleLinkClick = async ({ linkPageId, linkTitle, url }) => {
+    try {
+      const token = await user.getIdToken();
+
+      await fetch(`${backendUrl}api/analytics/link/view`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          linkPageId,
+          linkTitle,
+          url,
+        }),
+      });
+    } catch (error) {
+      console.error("Link view tracking failed:", error);
+    }
+  };
+
+  console.log(pages);
 
   return (
     <>
@@ -113,14 +134,28 @@ const LinkPageList = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
+                    onClick={() =>
+                      handleLinkClick({
+                        linkPageId: page._id,
+                        linkTitle: page.title,
+                        url: `${window.location.origin}/slug/${page.slug}`,
+                      })
+                    }
                   >
                     🔗 View
                   </a>
+
                   <button
                     onClick={() => {
                       const fullLink = `${window.location.origin}/slug/${page.slug}`;
                       navigator.clipboard.writeText(fullLink);
                       alert("Link copied to clipboard!");
+
+                      handleLinkClick({
+                        linkPageId: page._id,
+                        linkTitle: page.title,
+                        url: fullLink,
+                      });
                     }}
                     className="text-indigo-600 hover:underline cursor-pointer"
                   >

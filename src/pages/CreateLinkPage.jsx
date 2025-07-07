@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthProvider";
 import { backendUrl } from "../config";
+import { uploadPreset } from "../config";
+import { cloudName } from "../config";
 
 const fallbackImg =
   "https://singingriverhealthsystem.com/wp-content/uploads/2019/10/icon-fallback-physician.png";
@@ -53,9 +55,6 @@ const CreateLinkPage = () => {
   };
 
   const uploadImageToCloudinary = async (file) => {
-    const cloudName = "ddnyqh8uz"; // ✅ replace this
-    const uploadPreset = "linkinbio"; // ✅ replace this
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", uploadPreset);
