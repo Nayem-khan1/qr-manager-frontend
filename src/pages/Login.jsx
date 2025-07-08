@@ -22,10 +22,47 @@ export default function Login() {
     }
   };
 
+  // Dummy credentials
+  const adminCredentials = {
+    email: "nayem@gmail.com",
+    password: "123456",
+  };
+
+  const userCredentials = {
+    email: "test2@gmail.com",
+    password: "123456",
+  };
+
+  const autofillCredentials = (type) => {
+    if (type === "admin") {
+      setEmail(adminCredentials.email);
+      setPassword(adminCredentials.password);
+    } else if (type === "user") {
+      setEmail(userCredentials.email);
+      setPassword(userCredentials.password);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center mb-6">Sign In</h2>
+
+        {/* Quick login buttons */}
+        <div className="flex justify-between mb-4">
+          <button
+            onClick={() => autofillCredentials("admin")}
+            className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 text-sm"
+          >
+            Admin Login
+          </button>
+          <button
+            onClick={() => autofillCredentials("user")}
+            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 text-sm"
+          >
+            User Login
+          </button>
+        </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
