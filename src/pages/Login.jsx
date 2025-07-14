@@ -24,12 +24,12 @@ export default function Login() {
 
   // Dummy credentials
   const adminCredentials = {
-    email: "nayem@gmail.com",
+    email: "admin@gmail.com",
     password: "123456",
   };
 
   const userCredentials = {
-    email: "test2@gmail.com",
+    email: "demo@gmail.com",
     password: "123456",
   };
 
